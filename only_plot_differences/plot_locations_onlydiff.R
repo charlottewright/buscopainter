@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
+library(ggplot2)
 library(tidyverse)
 
 # get args
 args = commandArgs(trailingOnly=TRUE)
-locations <- read_tsv(args[1])
-
+locations <- read.table(args[1], header=TRUE)
 # Reorder factor to plot Merians in ascending order
 merian_order = c('MZ', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'M13', 'M14', 'M15', 'M16', 'M17', 'M18', 'M19', 'M20','M21', 'M22', 'M23', 'M24', 'M25', 'M26', 'M27', 'M28', 'M29', 'M30')
 locations$status_f = factor(locations$status, levels=merian_order)
@@ -21,9 +21,4 @@ p <- locations %>%
 
 # Save results
 ggsave(paste(args[1], "_buscopainter.pdf", sep = ""), plot = p, width = 15, height = 30, units = "cm", device = "pdf")
-ggsave(paste(args[1], "_buscopainter.png", sep = ""), plot = p, width = 15, height = 30 units = "cm", device = "png")
-
-
-
-
-
+ggsave(paste(args[1], "_buscopainter.png", sep = ""), plot = p, width = 15, height = 30, units = "cm", device = "png")
